@@ -1,4 +1,4 @@
-for window in 5 10 20 48 96; do
+for window in 10 20 48 96; do
     python run.py \
         --model_id "HS" \
         --is_training 1 \
