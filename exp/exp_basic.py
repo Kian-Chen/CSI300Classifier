@@ -1,17 +1,15 @@
 import os
 import torch
 
-from models import DLinear
+from models import DLinear, RMoK
 
 
 class Exp_Basic(object):
     def __init__(self, args):
         self.args = args
         self.model_dict = {
-
             'DLinear': DLinear,
-
-
+            'RMoK': RMoK
         }
         self.device = self._acquire_device()
         self.model = self._build_model().to(self.device)
