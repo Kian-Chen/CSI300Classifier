@@ -17,7 +17,7 @@ python run.py \
     --train_epochs 100 \
     --batch_size 256 \
     --patience 3 \
-    --learning_rate 0.0001 \
+    --learning_rate 0.001 \
     --des "Exp" \
     --lradj "type3" \
     --use_multi_scale "false" \
