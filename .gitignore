@@ -469,3 +469,5 @@ pyrightconfig.json
 
 AStock_2021_2024.csv
 dataset/
+checkpoints/
+logs/
