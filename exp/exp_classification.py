@@ -216,9 +216,7 @@ class Exp_Classification(Exp_Basic):
                 f.write(
                     f"params: {stats['Trainable params']}  "
                     f"MACs: {stats['MACs']}  "
-                    f"FLOPs: {stats['FLOPs']}  "
-                    f"total act: {stats['Total activations']}  "
-                    f"peak act: {stats['Peak activations']}\n"
+                    f"FLOPs: {stats['FLOPs']}\n"
                 )
             else:
                 f.write("\n")
