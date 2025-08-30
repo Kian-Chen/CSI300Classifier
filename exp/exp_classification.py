@@ -10,6 +10,7 @@ import warnings
 import numpy as np
 from torch.optim import lr_scheduler
 from sklearn.metrics import accuracy_score, f1_score, precision_score, recall_score, roc_auc_score
+from optimizer.muon import SingleDeviceMuonWithAuxAdam
 
 
 warnings.filterwarnings('ignore')
@@ -31,8 +32,17 @@ class Exp_Classification(Exp_Basic):
         return data_set, data_loader
 
     def _select_optimizer(self):
-        model_optim = optim.Adam(self.model.parameters(), lr=self.args.learning_rate)
-        return model_optim
+        muon_params = [p for n, p in self.model.named_parameters() if p.ndim >= 2] 
+        adam_params = [p for n, p in self.model.named_parameters() if p.ndim < 2]
+
+        param_groups = [
+            dict(params=muon_params, lr=self.args.learning_rate * 5, momentum=0.95, use_muon=True),
+            dict(params=adam_params, lr=self.args.learning_rate, betas=(0.9, 0.95), eps=1e-8, use_muon=False)
+        ]
+
+        optimizer = SingleDeviceMuonWithAuxAdam(param_groups)
+        return optimizer
+
 
     def _select_criterion(self):
         criterion = nn.CrossEntropyLoss()
@@ -91,7 +101,8 @@ class Exp_Classification(Exp_Basic):
                                             steps_per_epoch=train_steps,
                                             pct_start=self.args.pct_start,
                                             epochs=self.args.train_epochs,
-                                            max_lr=self.args.learning_rate)
+                                            max_lr=self.args.learning_rate,
+                                            cycle_momentum=False)
 
         for epoch in range(self.args.train_epochs):
             iter_count = 0
