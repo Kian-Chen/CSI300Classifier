@@ -23,5 +23,5 @@ for window in 5 10 20 48 96; do
         --lradj "type3" \
         --use_multi_scale "false" \
         --small_kernel_merged "false" \
-        --gpu 0
+        --gpu 2
 done
