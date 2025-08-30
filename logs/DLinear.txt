@@ -1,0 +1,16 @@
+HS_DLinear_HS_sl10_pl10_bz256_ep100_dim256_Exp_0  
+params: 1272  MACs: 1644800  FLOPs: 3289600
+Acc: 0.8327  F1: 0.8313  Prec: 0.8339  Rec: 0.8287  AUC: 0.9233
+
+HS_DLinear_HS_sl20_pl20_bz256_ep100_dim256_Exp_0  
+params: 1892  MACs: 3955200  FLOPs: 7910400
+Acc: 0.8540  F1: 0.8525  Prec: 0.8582  Rec: 0.8469  AUC: 0.9424
+
+HS_DLinear_HS_sl48_pl48_bz256_ep100_dim256_Exp_0  
+params: 5756  MACs: 13965312  FLOPs: 27930624
+Acc: 0.9041  F1: 0.9026  Prec: 0.9102  Rec: 0.8951  AUC: 0.9716
+
+HS_DLinear_HS_sl96_pl96_bz256_ep100_dim256_Exp_0  
+params: 19676  MACs: 43266048  FLOPs: 86532096
+Acc: 0.9088  F1: 0.9062  Prec: 0.9141  Rec: 0.8984  AUC: 0.9727
+

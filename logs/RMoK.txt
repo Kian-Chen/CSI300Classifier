@@ -1,0 +1,16 @@
+HS_RMoK_HS_sl10_pl10_bz256_ep100_dim256_Exp_0  
+params: 1532  MACs: 232950.0  FLOPs: 465900.0
+Acc: 0.8343  F1: 0.8338  Prec: 0.8315  Rec: 0.8360  AUC: 0.9212
+
+HS_RMoK_HS_sl20_pl20_bz256_ep100_dim256_Exp_0  
+params: 5832  MACs: 465925.0  FLOPs: 931850.0
+Acc: 0.8479  F1: 0.8482  Prec: 0.8436  Rec: 0.8528  AUC: 0.9273
+
+HS_RMoK_HS_sl48_pl48_bz256_ep100_dim256_Exp_0  
+params: 32768  MACs: 1118220.0  FLOPs: 2236440.0
+Acc: 0.8550  F1: 0.8545  Prec: 0.8511  Rec: 0.8579  AUC: 0.9322
+
+HS_RMoK_HS_sl96_pl96_bz256_ep100_dim256_Exp_0  
+params: 130016  MACs: 2236440.0  FLOPs: 4472880.0
+Acc: 0.8450  F1: 0.8472  Prec: 0.8196  Rec: 0.8768  AUC: 0.9240
+
