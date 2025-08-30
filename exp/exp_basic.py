@@ -1,7 +1,7 @@
 import os
 import torch
 
-from models import DLinear, RMoK
+from models import DLinear, RMoK, TTTLinear, TTTMLP
 
 
 class Exp_Basic(object):
@@ -9,7 +9,9 @@ class Exp_Basic(object):
         self.args = args
         self.model_dict = {
             'DLinear': DLinear,
-            'RMoK': RMoK
+            'RMoK': RMoK,
+            'TTTLinear': TTTLinear,
+            'TTTMLP': TTTMLP
         }
         self.device = self._acquire_device()
         self.model = self._build_model().to(self.device)

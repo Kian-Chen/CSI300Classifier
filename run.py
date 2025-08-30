@@ -93,6 +93,10 @@ parser.add_argument('--activation', type=str, default='gelu', help='activation')
 parser.add_argument('--output_attention', action='store_true', help='whether to output attention in ecoder')
 parser.add_argument('--do_predict', action='store_true', help='whether to predict unseen future data')
 
+# TTT
+parser.add_argument('--d_lower', type=int, default=16, help='dimension of lower-level model')
+parser.add_argument('--ttt_style', type=str, default='TTTLinear', help='style of TTT')
+
 # optimization
 parser.add_argument('--num_workers', type=int, default=0, help='data loader num workers')
 parser.add_argument('--itr', type=int, default=2, help='experiments times')
