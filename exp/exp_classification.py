@@ -11,6 +11,7 @@ import numpy as np
 from torch.optim import lr_scheduler
 from sklearn.metrics import accuracy_score, f1_score, precision_score, recall_score, roc_auc_score
 from optimizer.muon import SingleDeviceMuonWithAuxAdam
+from utils.tools import compute_model_stats
 
 
 warnings.filterwarnings('ignore')
@@ -32,8 +33,17 @@ class Exp_Classification(Exp_Basic):
         return data_set, data_loader
 
     def _select_optimizer(self):
-        muon_params = [p for n, p in self.model.named_parameters() if p.ndim >= 2] 
-        adam_params = [p for n, p in self.model.named_parameters() if p.ndim < 2]
+        muon_params = []
+        adam_params = []
+
+        for n, p in self.model.named_parameters():
+            if p.ndim >= 2:
+                if p.requires_grad:
+                    muon_params.append(p)
+                else:
+                    adam_params.append(p)
+            else:
+                adam_params.append(p)
 
         param_groups = [
             dict(params=muon_params, lr=self.args.learning_rate * 5, momentum=0.95, use_muon=True),
@@ -42,7 +52,6 @@ class Exp_Classification(Exp_Basic):
 
         optimizer = SingleDeviceMuonWithAuxAdam(param_groups)
         return optimizer
-
 
     def _select_criterion(self):
         criterion = nn.CrossEntropyLoss()
@@ -166,6 +175,11 @@ class Exp_Classification(Exp_Basic):
         # if not os.path.exists(folder_path):
         #     os.makedirs(folder_path)
 
+        batch_x_, _ = next(iter(test_loader))
+        batch_x_ = batch_x_.float().to(self.device)
+        self.model_stats = compute_model_stats(self.model, batch_x_)
+
+
         self.model.eval()
         with torch.no_grad():
             for i, (batch_x, label) in enumerate(test_loader):
@@ -197,6 +211,17 @@ class Exp_Classification(Exp_Basic):
             os.makedirs(self.args.log_dir)
         with open(log_path, 'a') as f:
             f.write(setting + "  \n")
+            if hasattr(self, 'model_stats'):
+                stats = self.model_stats
+                f.write(
+                    f"#params: {stats['Trainable params']}  "
+                    f"MACs: {stats['MACs']}  "
+                    f"FLOPs: {stats['FLOPs']}  "
+                    f"total act: {stats['Total activations']}  "
+                    f"peak act: {stats['Peak activations']}\n"
+                )
+            else:
+                f.write("\n")
             f.write(f"Acc: {accuracy:.4f}  F1: {f1:.4f}  Prec: {precision:.4f}  Rec: {recall:.4f}  AUC: {auc:.4f}\n\n")
 
         print(f"Acc: {accuracy:.4f}  F1: {f1:.4f}  Prec: {precision:.4f}  Rec: {recall:.4f}  AUC: {auc:.4f}")

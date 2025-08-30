@@ -3,6 +3,10 @@ import torch
 import matplotlib.pyplot as plt
 import time
 
+from torchinfo import summary
+from fvcore.nn import FlopCountAnalysis, activation_count
+
+
 plt.switch_backend('agg')
 
 
@@ -146,3 +150,45 @@ def adjustment(gt, pred):
 
 def cal_accuracy(y_pred, y_true):
     return np.mean(y_pred == y_true)
+
+def compute_model_stats(model, sample_input):
+    model.eval()
+    device = next(model.parameters()).device
+    sample_input = sample_input.to(device)
+
+    with torch.no_grad():
+        summary_info = summary(model, input_data=sample_input, verbose=0)
+        total_params = summary_info.total_params
+        trainable_params = summary_info.trainable_params
+
+        flops_counter = FlopCountAnalysis(model, sample_input)
+        try:
+            flops = flops_counter.total()
+        except Exception:
+            flops = 0
+        macs = flops // 2
+
+        try:
+            acts = activation_count(model, sample_input)
+            if isinstance(acts, tuple):
+                total_activations = acts[0]
+                peak_activations = max(acts[1].values()) if len(acts[1]) > 0 else 0
+            elif isinstance(acts, dict):
+                total_activations = sum(acts.values())
+                peak_activations = max(acts.values()) if len(acts) > 0 else 0
+            else:
+                total_activations = 0
+                peak_activations = 0
+        except Exception:
+            total_activations = 0
+            peak_activations = 0
+
+    stats = {
+        "Total params": total_params,
+        "Trainable params": trainable_params,
+        "MACs": macs,
+        "FLOPs": flops,
+        "Total activations": total_activations,
+        "Peak activations": peak_activations
+    }
+    return stats
