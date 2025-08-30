@@ -214,7 +214,7 @@ class Exp_Classification(Exp_Basic):
             if hasattr(self, 'model_stats'):
                 stats = self.model_stats
                 f.write(
-                    f"#params: {stats['Trainable params']}  "
+                    f"params: {stats['Trainable params']}  "
                     f"MACs: {stats['MACs']}  "
                     f"FLOPs: {stats['FLOPs']}  "
                     f"total act: {stats['Total activations']}  "
