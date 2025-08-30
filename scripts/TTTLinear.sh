@@ -1,14 +1,14 @@
 for window in 10 20 48 96; do
     python run.py \
-        --model_id "HS" \
+        --model_id "CSI300" \
         --is_training 1 \
         --model "TTTLinear" \
         --ttt_style "TTTLinear" \
         --root_path "./dataset/" \
-        --data_path "HS.csv" \
+        --data_path "CSI300.csv" \
         --log_dir "./logs/" \
         --log_name "TTTLinear.txt" \
-        --data "HS" \
+        --data "CSI300" \
         --features "M" \
         --seq_len $window \
         --pred_len $window \

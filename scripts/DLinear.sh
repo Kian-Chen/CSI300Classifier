@@ -1,13 +1,13 @@
 for window in 10 20 48 96; do
     python run.py \
-        --model_id "HS" \
+        --model_id "CSI300" \
         --is_training 1 \
         --model "DLinear" \
         --root_path "./dataset/" \
-        --data_path "HS.csv" \
+        --data_path "CSI300.csv" \
         --log_dir "./logs/" \
         --log_name "DLinear.txt" \
-        --data "HS" \
+        --data "CSI300" \
         --features "M" \
         --seq_len $window \
         --pred_len $window \

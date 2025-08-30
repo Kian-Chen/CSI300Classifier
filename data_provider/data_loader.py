@@ -4,9 +4,9 @@ import torch
 from torch.utils.data import Dataset
 
 
-class Dataset_HS(Dataset):
+class Dataset_CSI300(Dataset):
     def __init__(self, root_path, flag='train', size=None, features='S',
-                 data_path='HS.csv', target='label', window_size=20):
+                 data_path='CSI300.csv', target='label', window_size=20):
         """
         root_path: 数据路径
         flag: 'train' | 'val' | 'test'

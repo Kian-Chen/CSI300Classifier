@@ -1,16 +1,16 @@
-HS_TTTLinear_HS_sl10_pl10_bz256_ep100_dim256_Exp_0  
+CSI300_TTTLinear_CSI300_sl10_pl10_bz256_ep100_dim256_Exp_0  
 params: 23332  MACs: 33511570.0  FLOPs: 67023140.0
 Acc: 0.7547  F1: 0.7485  Prec: 0.7635  Rec: 0.7340  AUC: 0.8565
 
-HS_TTTLinear_HS_sl20_pl20_bz256_ep100_dim256_Exp_0  
+CSI300_TTTLinear_CSI300_sl20_pl20_bz256_ep100_dim256_Exp_0  
 params: 23332  MACs: 69841438.0  FLOPs: 139682876.0
 Acc: 0.8333  F1: 0.8375  Prec: 0.8140  Rec: 0.8624  AUC: 0.9180
 
-HS_TTTLinear_HS_sl48_pl48_bz256_ep100_dim256_Exp_0  
+CSI300_TTTLinear_CSI300_sl48_pl48_bz256_ep100_dim256_Exp_0  
 params: 23332  MACs: 170030376.0  FLOPs: 340060752.0
 Acc: 0.7897  F1: 0.8131  Prec: 0.7273  Rec: 0.9218  AUC: 0.9052
 
-HS_TTTLinear_HS_sl96_pl96_bz256_ep100_dim256_Exp_0  
+CSI300_TTTLinear_CSI300_sl96_pl96_bz256_ep100_dim256_Exp_0  
 params: 23332  MACs: 341111828.0  FLOPs: 682223656.0
 Acc: 0.6945  F1: 0.7525  Prec: 0.6240  Rec: 0.9477  AUC: 0.8696
 

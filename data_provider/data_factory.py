@@ -1,8 +1,8 @@
-from data_provider.data_loader import Dataset_HS
+from data_provider.data_loader import Dataset_CSI300
 from torch.utils.data import DataLoader
 
 data_dict = {
-    'HS': Dataset_HS
+    'CSI300': Dataset_CSI300
 }
 
 

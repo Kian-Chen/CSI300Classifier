@@ -7,7 +7,7 @@ import random
 import numpy as np
 from utils.str2bool import str2bool
 
-parser = argparse.ArgumentParser(description='HS Classification')
+parser = argparse.ArgumentParser(description='CSI300 Classification')
 
 # random seed
 parser.add_argument('--random_seed', type=int, default=2021, help='random seed')
@@ -19,7 +19,7 @@ parser.add_argument('--model', type=str, required=True, default='DLinear',
                     help='model name, options: [DLinear]')
 
 # data loader
-parser.add_argument('--data', type=str, required=True, default='HS', help='dataset type')
+parser.add_argument('--data', type=str, required=True, default='CSI300', help='dataset type')
 parser.add_argument('--root_path', type=str, default='./data/ETT/', help='root path of the data file')
 parser.add_argument('--data_path', type=str, default='ETTh1.csv', help='data file')
 parser.add_argument('--log_dir', type=str, default='./logs', help='logs directory')
