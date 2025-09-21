@@ -14,28 +14,28 @@
 
 ## 1. Task Definition
 
-Given one or more financial time series \( \mathbf{x}\_t \in \mathbb{R}^C \), where \( C \) is the feature dimension, the task is to perform binary classification (up or down) for each time step in a sliding window of length \( L \). The model learns a mapping function \( f \), defined as:
+Given one or more financial time series $ \mathbf{x}\_t \in \mathbb{R}^C $, where $ C $ is the feature dimension, the task is to perform binary classification (up or down) for each time step in a sliding window of length $ L $. The model learns a mapping function $ f $, defined as:
 
-\[\
+$$
 f: \mathbb{R}^{L \times C} \rightarrow \{0, 1\}^L
-\]
+$$
 
 Where:
 
-- \( \mathbf{x}_t = (x_{t,1}, x*{t,2}, \dots, x*{t,C}) \) is the input feature vector at time step \( t \),
-- \( \text{close}\_t \) is the closing price at time step \( t \), and \( \text{prev_close}\_t \) is the closing price at the previous time step.
+- $ \mathbf{x}_t = (x_{t,1}, x_{t,2}, \dots, x_{t,C}) $ is the input feature vector at time step $ t $,
+- $ \text{close}\_t $ is the closing price at time step $ t $, and $ \text{prev\_close}_t $ is the closing price at the previous time step.
 
 The label for each time step is constructed based on whether the closing price has increased or decreased compared to the previous time step:
 
-\[\
-\text{label}\_t =
+$$
+\text{label}_t =
 \begin{cases}
-1 & \text{if } \text{close}\_t \geq \text{prev_close}\_t \\
-0 & \text{if } \text{close}\_t < \text{prev_close}\_t
+1 & \text{if } \text{close}_t \geq \text{prev\_close}_t \\
+0 & \text{if } \text{close}_t < \text{prev\_close}_t
 \end{cases}
-\]
+$$
 
-The task is to predict the movement of the stock price for future time steps, where the output labels are binary, \( y_t \in \{0, 1\} \), indicating whether the stock price increased or decreased.
+The task is to predict the movement of the stock price for future time steps, where the output labels are binary, $ y_t \in \{0, 1\} $, indicating whether the stock price increased or decreased.
 
 ---
 
@@ -51,32 +51,34 @@ The task is to predict the movement of the stock price for future time steps, wh
 1. **Technical Indicators**:
 
    - **Moving Averages (MA)**: Calculate the `5-day`, `10-day`, `20-day` moving averages for the closing price.
-     \[\
-     \text{MA}_n = \frac{1}{n} \sum_{i=1}^{n} \text{close}\_{t-i}
-     \]
+     $$
+     \text{MA}_n = \frac{1}{n} \sum_{i=1}^{n} \text{close}_{t-i}
+     $$
    - **Return Calculations**: Calculate daily, weekly, and monthly returns based on the previous day's closing price:
-     \[\
-     \text{daily*return}\_t = \frac{\text{close}\_t - \text{close}*{t-1}}{\text{close}\_{t-1}}
-     \]
+     $$
+     \text{daily\_return}_t = \frac{\text{close}_t - \text{close}_{t-1}}{\text{close}_{t-1}}
+     $$
      Similarly, `weekly_return` (5-day return) and `monthly_return` (20-day return) are computed.
 
 2. **Label Construction**: The label for each time step is determined based on whether the stock price has increased compared to the previous day's closing price:
-   \[\
-   \text{label}\_t =
+
+   $$
+   \text{label}_t =
    \begin{cases}
-   1 & \text{if } \text{close}\_t \geq \text{prev_close}\_t \\
-   0 & \text{if } \text{close}\_t < \text{prev_close}\_t
+   1 & \text{if } \text{close}_t \geq \text{prev\_close}_t \\
+   0 & \text{if } \text{close}_t < \text{prev\_close}_t
    \end{cases}
-   \]
+   $$
+
    This label is used for the subsequent binary classification task.
 
 3. **Data Standardization**: All numerical features, such as `prev_close`, `open`, `high`, `low`, and `volume`, are standardized using **MinMaxScaler** to ensure all features are on the same scale, aiding model convergence.
 
-4. **Sliding Window Slicing**: Each sample is constructed from `seq_len` historical data points, with the label corresponding to the price movement for each time step. The final data format is: \( N \times L \times S \times F \), where:
-   - \( N \): Number of samples,
-   - \( L \): Length of the window (time steps),
-   - \( S \): Number of stocks,
-   - \( F \): Number of features.
+4. **Sliding Window Slicing**: Each sample is constructed from `seq_len` historical data points, with the label corresponding to the price movement for each time step. The final data format is: $ N \times L \times S \times F $, where:
+   - $ N $: Number of samples,
+   - $ L $: Length of the window (time steps),
+   - $ S $: Number of stocks,
+   - $ F $: Number of features.
 
 ---
 
