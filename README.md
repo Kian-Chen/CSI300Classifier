@@ -62,13 +62,13 @@ The task is to predict the movement of the stock price for future time steps, wh
 
 2. **Label Construction**: The label for each time step is determined based on whether the stock price has increased compared to the previous day's closing price:
 
-  $$
+$$
    \text{label}_t =
    \begin{cases}
    1 & \text{if } \text{close}_t \geq \text{prev\_close}_t \\
    0 & \text{if } \text{close}_t < \text{prev\_close}_t
    \end{cases}
-  $$
+$$
 
    This label is used for the subsequent binary classification task.
 
